@@ -11,7 +11,7 @@ export const IntroduceMeBlock = () => {
         </div>
         <div className="animate-fade-in">
           <p className="leading-relaxed text-center clear-left text-pretty whitespace-pre-line text-lg font-normal">
-            {`I'm a Developer with a bachelor's degree in Computer Science and I've more than 5 years of experience, I present my portfolio.
+            {`I'm a Developer with a bachelor's degree in Computer Science and I've more than 6 years of experience, I present my portfolio.
 
               Through my experience, I have learned to approach each project with a growth mindset, eager to contribute meaningfully and make a difference. I'm constantly striving to improve and face new challenges, confident in my abilities to deliver high-quality work.`}
           </p>

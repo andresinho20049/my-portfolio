@@ -65,7 +65,7 @@ const SchemaOrgHomePage = JsonLd<WebSite>({
   url: "https://andresinho20049.com.br/",
   name: "Andresinho20049",
   description:
-    "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 5 years of experience.",
+    "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 6 years of experience.",
   alternateName: [
     "Portfolio - Software Engineer",
     "Developer Fullstack",

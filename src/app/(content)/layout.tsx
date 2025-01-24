@@ -39,7 +39,7 @@ const GraphSchemaOrg: Graph = {
       "@id": "https://andresinho20049.com.br/home",
       name: "André Carlos",
       description:
-        "Hello, I'm André Carlos, I'm a developer with a bachelor's degree in Computer Science and more than 5 years of experience, I present my portfolio.",
+        "Hello, I'm André Carlos, I'm a developer with a bachelor's degree in Computer Science and more than 6 years of experience, I present my portfolio.",
       about: "Introduce me for you",
       copyrightYear: "2024",
       award: ["Developer", "Software engineer", "Full stack"],

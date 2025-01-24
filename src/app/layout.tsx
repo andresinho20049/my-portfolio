@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Andresinho20049",
   },
   description:
-    "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 5 years of experience.",
+    "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 6 years of experience.",
   keywords: [
     "Andresinho20049",
     "andresinho20049",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     url: "https://andresinho20049.com.br/",
     title: "Portfolio | Andresinho20049",
     description:
-      "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 5 years of experience.",
+      "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 6 years of experience.",
     siteName: "Portfolio | Andresinho20049",
     images: [
       {
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
     creator: "@andresinho20049",
     title: "Portfolio | Andresinho20049",
     description:
-      "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 5 years of experience.",
+      "I'm André Carlos, known on the web as andresinho20049, I'm a developer with a bachelor's degree in Computer Science and more than 6 years of experience.",
     images: ["/og-Image.jpg", "/og-Image-2.jpg"],
   },
 };

@@ -8,7 +8,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Hello, I'm André Carlos, I'm a developer with a bachelor's degree in Computer Science and more than 5 years of experience, I present my portfolio.",
+    "Hello, I'm André Carlos, I'm a developer with a bachelor's degree in Computer Science and more than 6 years of experience, I present my portfolio.",
   keywords: ["Portfolio", "Landing page", "Inspiration"],
 };
 
