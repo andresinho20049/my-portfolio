@@ -1,0 +1,74 @@
+---
+title: LB Talk
+description: Multiplatform website through responsiveness, with the functionality to translate content into Libras
+date: 2022-12-22
+imgSrc: /cards/lb_talks.png
+linkPreview: https://lb-talk-web.andresinho20049.com.br/
+tags: Node.js|Typescript|React|Material UI|VLibras
+---
+
+LB Talks is a responsive website, it contains translation functionality into Libras, which can be applied in 2 different ways.
+
+User can record an audio and through API's Speech-to-text the audio is transcribed, after the text is returned with speech, the VLibras service is called, performing the translation into Libras.
+Changing the mode to text, the user can type and the typed text will be translated into pounds.
+The application was designed with simplicity and increased accessibility in mind. 
+
+Many Brazilians with hearing impairment need the help of an interpreter to communicate effectively. Therefore, when observing a classmate who was accompanied by an interpreter in class, and remembering that few have the monetary resources to do the same, the idea proposed in this monograph was conceived. Therefore, the application's main objective is to help deaf people who need to communicate and carry out daily tasks, but who cannot have the help of an interpreter, even momentarily.
+
+## MVP
+  - [Web Site (Demo)](https://lb-talk-web.andresinho20049.com.br/)
+  - [Presentation Trailer](https://youtu.be/-PeDpOGSHX8)
+  - [Pitch Presentation](https://youtu.be/uaHdhQRv6tI)
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Development
+This project was started with [npx create-react-app lb-talks-web --template typescript](https://create-react-app.dev/docs/adding-typescript).
+
+### Technologies used:
+  - React
+  - Material UI
+  - Speechmatics (Speech-to-Text API)
+  - mic-recorder (Record audio)
+  - VLibras
+ 
+## How to start the project
+1. Download the project by running a git clone
+```git
+git clone https://github.com/andresinho20049/LB-Talk-Web.git
+```
+
+2. Inside the project folder type:
+```node
+npm run start
+# or
+yarn start
+```
+> **Note:**
+To run this project you will need to have Node installed on your machine.
+
+3. After installing the project dependencies and generating the build, it will open in your browser at the url: [http://localhost:3000/](http://localhost:3000/)
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Considerations
+The use of technological resources such as smartphones and speech recognition can contribute to the inclusion of people with hearing impairment in the digital and real world. And with greater use and increased dependence on digital systems, the inclusion of assistive tools becomes extremely important, as they reduce or eliminate barriers in the experience of using websites and applications.
+
+> **ACADEMIC PROJECT**
+> Course: Computer Science
+> Subject: Software and Projects Laboratory
+> Contributors: [André Carlos](https://www.linkedin.com/in/andresinho20049/) / Felipe Silva / Gabriel dos Santos / Matheus Moreira / Miguel Angelo / Rafael Barbosa

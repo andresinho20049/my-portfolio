@@ -1,0 +1,366 @@
+---
+title: NF Control
+description: API developed for MEI management, making it possible to register NF and communicate it if the limits are close or exceeded, avoiding exceeding the tax rate
+date: 2023-03-02
+imgSrc: /cards/nf_control_vibbra.png
+linkPreview: https://nf-control-front.vercel.app/
+tags: Back-end|Java|Spring-Boot|Swagger|Oauth2|Postgres|Front-end|Node.js|Typescript|React
+---
+
+Project developed for MEI, with fiscal control and enables registration and management of notes.
+
+This development has two fronts, Java API with Oauth2 authentication and front-end react, sessions with tokenJWT.
+
+## Main tools
+  - Back-end
+    - Java
+      - Spring boot
+      - JPA
+      - Swagger
+      - Oauth2
+    - Postgres
+  - Front-end
+    - Node.js
+    - Typescript
+    - React
+      - Material UI
+      - Axios
+      - Unform
+      - Yup
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Rest API with Oauth2 authentication and documentation using Swagger
+
+**About**:
+ - Role-based access control with JWT
+ - technology used
+    - Java 8
+    - Spring Boot 2.7.0
+    - Spring JPA latest
+    - Spring Security 5.6.4     
+    - Spring Secutiry Oauth2 Autoconfigure 2.1.5
+    - Springfox (Swagger) 3.0.0
+    - PostgresSql
+    - Lombok - [Ajuda para configurar o lombok](https://projectlombok.org/setup/eclipse)
+    - Project Maven
+- Application.properties
+    - Port: 5000
+    - Profile: dev
+    - Base path: /api
+    - Encrypt: bcrypt
+    - Hibernate DDL: update
+- ExceptionHandler
+    - ProjectException:
+        - Status: 400
+        - Description: Exception provoked, n reasons, but mainly business rule
+    - AuthorizationException:
+        - Status: 403
+        - Description: Access Denied with RuntimeException
+
+### Getting Started
+1. Git clone project
+ ```git
+    git clone https://git.vibbra.com.br/nf-control-8612/nf-control-back.git
+ ```
+
+2. cd folder
+```cmd
+  cd ./nf-control-back
+```
+
+3. Build Project
+```mvn
+    mvn clean && mvn install package
+```
+
+4. Start Project
+```mvn
+  mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=5000
+```
+
+5. Open Swagger
+  - No navegador digite a url: http://localhost:5000/api/swagger-ui/index.html
+  - ou se preferir [clique aqui](http://localhost:5000/api/swagger-ui/index.html)
+
+#### Config Lombok
+
+> In this example I will consider using Eclipse, but just adapt it to your use, ok.
+
+1. This project uses lombok, if you haven't already installed this plugin on your eclipse, click:
+Help > Install new software...
+In the 'Work with' field, paste: https://projectlombok.org/p2
+Select lombok and then click finish
+
+2. Optional Step: Click Project > Update maven project > Ok
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+### Models
+#### User
+```json
+{
+  "id": 2,
+  "name": "Andre",
+  "email": "andre.andresinho2009@hotmail.com",
+  "updatePassword": false,
+  "active": true,
+  "roles": [
+    {
+        "name": "ROLE_ADMIN"
+    }
+  ]
+}
+```
+
+#### Role
+```json
+[
+  {
+    "name": "ROLE_ADMIN"
+  },
+  {
+    "name": "ROLE_VIEW_USER"
+  },
+  {
+    "name": "ROLE_CREATE_USER"
+  },
+  {
+    "name": "ROLE_UPDATE_USER"
+  },
+  {
+    "name": "ROLE_DISABLE_USER"
+  }
+]
+```
+
+#### JWT Payload Exemplo
+```json
+{
+  "aud": [
+    "restservice"
+  ],
+  "updatePassword": true,
+  "user_name": "andre.andresinho2009@hotmail.com",
+  "scope": [
+    "all"
+  ],
+  "id": 2,
+  "name": "André",
+  "exp": 1677677296,
+  "authorities": [
+    "ROLE_ADMIN"
+  ],
+  "jti": "77e8d226-25ae-4a26-a4bb-d04059ac8e5d",
+  "client_id": "52da334b25d96304a09901705846663fef41ce8f"
+}
+```
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+### Mail Service
+The implementation of sending emails using Google's SMTP was developed, but Google removed the possibility of allowing less secure apps. So at the moment sending emails is not working.
+
+```Java
+  private JavaMailSender getMailSender() {
+		JavaMailSenderImpl sender = new JavaMailSenderImpl();
+		sender.setProtocol("smtp");
+		sender.setHost("smtp.gmail.com");
+		
+		sender.setPort(587);
+		sender.setUsername(username);
+		sender.setPassword(password);
+
+		Properties mailProps = new Properties();
+
+		mailProps.put("mail.smtp.auth", "true");
+		mailProps.put("mail.smtp.starttls.enable", "true");
+		mailProps.put("mail.smtp.starttls.required", "false");
+		mailProps.put("mail.smtp.ssl.enable", "false");
+
+		sender.setJavaMailProperties(mailProps);
+
+		return sender;
+	}
+```
+
+The credentials used in the portal are loaded from the environment.
+
+### Release of Notes
+As shown below, the notes are filtered by year, allowing you to validate the entry of notes and make annual revenue estimates.
+
+```Java
+  @Override
+	public Page<Invoice> findByPage(Integer year, Integer page, Integer size, String order, String direction) {
+		PageRequest pageRequest = Pagination.getPageRequest(page, size, order, direction);
+		
+		Long userId = SecurityContext.getUserLogged().getId();
+
+		if(year != null)
+			return invoiceRepository.findByYearAndUser(year, userId, pageRequest);
+		
+		return invoiceRepository.findByUser_Id(userId, pageRequest);
+	}
+```
+
+All values posted on the portal are linked to the logged in user, so each user is only allowed to view their own entries.
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## NF Control Front-end
+
+This project was started with [Create React App](https://github.com/facebook/create-react-app).
+
+### NPM Scripts
+
+In the project directory you can run:
+
+#### `npm start`
+
+Runs the application in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console
+
+#### `npm test`
+
+Starts the test runner in interactive watch mode.\
+See the section on [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+#### `npm run build`
+
+Builds the application for production in the `build`.\ folder
+It correctly packages React in production mode and optimizes compilation for best performance.
+
+The build is minified and file names include hashes.\
+Your app is ready to be deployed!
+
+See the section on [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+---
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+### Libraries used
+I will talk a little about the tools/libraries used, why they were developed in such ways.
+
+#### Material UI
+Material UI is a React UI component library that implements Google's Material Design.
+
+It includes a comprehensive collection of pre-built components that are ready to use.
+
+Material's interface is beautiful and features a set of customization options that make it easy to implement a custom interface system.
+
+#### Axios
+Axios is a Promises-based HTTP client for making requests. Axios brings some advantages and simplifications, making it better to use than just Fetch, such as simple configuration, automatic JSON conversion, Interceptors, etc...
+
+#### Uniform
+Unform, forms API, advantage in using it because it does not use state, so when it is typed in the input, the other inputs do not suffer rendering.
+
+#### Yup
+Yup is a JavaScript schema builder for schema analysis and validation.
+
+#### CryptoJs
+CryptoJs, as the name suggests, is a cryptography library, making it possible to use ALGORITHM and Secret Key, used in the end-to-end Encrypt application.
+
+#### React Router Dom
+React Router allows "client-side routing".
+
+React is a popular library for creating single-page applications (SPAs) that are rendered client-side.
+
+and unlike conventional multi-page applications, browsing these views should not result in the entire page reloading.
+
+### Security
+This React application consumes service from a Java Spring application with Oauth2 Authentication, and the login scheme must follow the API validation and authentication requirements.
+
+#### Security layer on the front
+As previously stated, the back-end works with Authentication Server Oauth2, below I detail how the login works, in short the session will be validated using the jwt token, if it is expired or non-existent, the user will be logged out.
+
+> Request: `oauth/token`
+```ts
+     const encryptedPassword = encryptedAES(login.password);
+     const encryptedKeyVerify = encryptedAES(process.env.REACT_APP_KEY_VERIFY || '');
+     const passwordEncoded = Buffer.from(`${encryptedPassword}|${encryptedKeyVerify}`).toString('base64');
+
+     const data = new URLSearchParams({ 'username': login.username });
+     data.append('password', passwordEncoded);
+     data.append('grant_type', 'password');
+
+     const config = {
+         method: 'post',
+         url: `${process.env.REACT_APP_BASE_URL}/oauth/token`,
+         withCredentials: true,
+         auth: {
+             username: process.env.REACT_APP_AUTH_USERNAME || '',
+             password: process.env.REACT_APP_AUTH_PASSWORD || ''
+         },
+         headers: {
+             'Content-Type': 'application/x-www-form-urlencoded',
+         },
+         date: date
+     };
+
+     const res = await axios(config);
+```
+
+> The username and password entered in the body are related to the client (user) who is logging in, the clientId and clientSecret informed in the auth block are for the application_client to authenticate with the Authentication server.
+
+### Toggle Theme
+The user can select between using a Dark and Light theme, when logging out, leaving the portal page and/or closing the browser, when entering the portal again through the same browser, the selected theme settings are maintained.
+
+#### PersistedState
+The portal has a context, `AppThemeContext`, which receives information from the theme and applies it, and to keep this information persisted even after F5 or closing the browser, a custom hook is used, called `usePersistedState`.
+
+When instantiating a state with `usePersistedState`, unlike the conventional `useState`, the initial value and a key are informed, then the local storage is consulted to see if it has any value with the informed key and set to the new value. \
+_Considerations to Rocketseat_
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Considerations \
+The back-end was first developed aiming at the business rules and scope of the project, and later the front-end development was started
+
+> **Project:** NF Control \
+> **Dev:** André Carlos [(andresinho20049)](https://github.com/andresinho20049)    

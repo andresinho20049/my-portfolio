@@ -1,0 +1,191 @@
+---
+title: LHV E-commerce
+description: Ecommerce website for clothing store, with Landing Page optimized for SEO, fully responsive, page for publishing articles increasing engagement and generate invoices
+date: 2024-01-16
+imgSrc: /cards/lhv_store.png
+linkPreview: https://emporiolhv.andresinho20049.com.br/loja
+tags: Node.js|Typescript|Nextjs|React|Tailwind|MDX
+---
+
+"Outfit of the Day" is a fashion trend that has taken social media by storm. Fashion bloggers showcase their daily or occasion-specific attire on platforms like Tumblr, Instagram, and Pinterest, as well as in videos on YouTube. If you're a fashion enthusiast, you wouldn't want to miss our Instagram page where we share our latest OOTD posts. Do you have any suggestions for the next OOTD? Share your thoughts and let's create a fashion statement that will turn heads!"
+
+LHV has:
+ - a Landing Page optimized to be displayed in Google search results Google
+ - Fully responsive website to be displayed on different types of screens
+ - Cart items are stored in the browser's cookie, so even closing the page, your cart products are not lost;
+ - if the customer is interested in purchasing, they can generate an order in PDF.
+ - Outfit of the day is a page focused on engagement, where monitors website can publish new Stories/posts daily
+ - About brings a timeline and tells a little about the history of LHV
+
+![LHV Wallpaper](https://raw.githubusercontent.com/andresinho20049/LHV-emporio/master/public/img/lhv_wallpaper_1.png)
+
+## New Features
+  - Administrative panel development
+    - Develop API in microservices architecture, for product registration and management, user control and permission, and publication of articles for engagement.
+    - Develop interface for the administrative panel
+    - Develop Dashboard screen
+  - Integrate with S3 (AWS) to store static
+  - Integrate payment platform with e-commerce to accept payments:
+    - PIX
+    - Ticket
+    - Credit card
+  - Create custom domain and implement practices to improve website SEO
+    - Scheme.org
+    - OpenGraph with custom image
+    - Metadata with automatically generated title and description for each page
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/7m22DWifbKI?si=xOvccR_f6e3FGaCn&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+---
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Technologies
+  - NodeJs (Run time)
+  - TypeScript (language)
+    - NextJs - APP Route (Framework)
+    - _libraries_:
+      - React
+      - tailwindcss
+      - eslint
+      - flowbite-react
+      - react-pdf/renderer
+
+React emerged as a javascript library, later becoming a framework where it competed with Angular.
+
+Both were NodeJs frameworks with SPA (Single Page Application) architecture, in this model the React and Angular frameworks sent a single HTML file to the Browser, and the page was updated using Javascript.
+
+NextJs emerged as a framework that loads REACT functions to generate HTML pages on the server and returns the already rendered HTML to the browser.
+
+There are scenarios where the page can be pre-rendered, currently with NextJs in version 13, we have the APP Route framework, where by default pages are rendered on the server side, and for scenarios where it requires user interaction or use of React hooks like for example useState it is necessary to mark the file with 'use client'
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Getting Started
+There are two ways that can be used to start the project
+
+1. Docker / Docker compose
+2. Node (npm / yarn / pnpm / bun)
+
+<details> 
+<summary>
+Docker
+</summary>
+<content>
+
+1. Run docker compose with profile development
+```sh
+docker compose --profile development up
+```
+
+> if you want to build before running, incrude `--build`
+
+Example:
+```sh
+docker compose --profile development up --build
+```
+
+2. Run docker compose with command start
+```
+docker compose up
+```
+
+</content>
+</details> 
+
+<details> 
+<summary>
+Node (or something package manager)
+</summary>
+<content>
+
+> in this example will use npm
+
+1. Run npm compose to run development
+```sh
+npm run dev
+```
+
+> if you want to build before running, exec `npm run build`
+
+2. Run npm with command start
+```sh
+npm run start
+```
+
+> obs: If you want to briefly see the project working after making a clone of it, run it.
+
+```sh
+npm run preview
+```
+
+</content>
+</details> 
+
+### NextJs and App router
+In version 13, Next.js introduced a new App Router built on React Server Components, which supports shared layouts, nested routing, loading states, error handling, and more.
+
+The App Router works in a new directory named app. The app directory works alongside the pages directory to allow for incremental adoption. This allows you to opt some routes of your application into the new behavior while keeping other routes in the pages directory for previous behavior. If your application uses the pages directory, please also see the Pages Router documentation.
+
+[see more](https://nextjs.org/docs/app/building-your-application/routing#:~:text=In%20version%2013,Pages%20Router%20documentation.)
+
+### MDX
+Markdown is a lightweight markup language used to format text. It allows you to write using plain text syntax and convert it to structurally valid HTML. It's commonly used for writing content on websites and blogs.
+
+MDX is a superset of markdown that lets you write JSX directly in your markdown files. It is a powerful way to add dynamic interactivity and embed React components within your content.
+
+Next.js can support both local MDX content inside your application, as well as remote MDX files fetched dynamically on the server. The Next.js plugin handles transforming markdown and React components into HTML, including support for usage in Server Components (the default in App Router).
+
+### Why we use MDX
+Our goal was to establish a platform that allows users to generate and share their EMIT articles in a centralized location.
+
+To achieve this, our solution has a folder structure that automatically loads MDX files onto the website as new pages.
+
+Thanks to this recently introduced technology, we were able to meet our requirements and unite our approach.
+
+### Tailwind
+Are you tired of manually writing CSS styles for your web pages and components? Look no further than Tailwind CSS! With its powerful class name scanning feature, Tailwind CSS generates corresponding styles and writes them to a static CSS file, so you don't have to! This process is super-fast, flexible, and reliable, and it requires zero runtime. 
+
+Let Tailwind CSS do the heavy lifting for you, so you can focus on creating amazing user experiences for your audience.
+
+When it comes to animations, it's important to note that they are often specific to the project at hand and require customization to better suit your needs. While Tailwind provides some helpful examples of animations by default, you are encouraged to tailor them to your specific requirements. 
+
+To customize the animation values in Tailwind, you can access the four example animations available by default as well as the animate-none utility. These utility classes can be modified by editing the theme.animation or theme.extend.animation in the tailwind.config.js file. 
+
+It's worth noting that the customization of animations is an important part of creating a unique and engaging user experience. By taking the time to tailor animations to your specific needs, you can ensure that your project stands out and delivers the desired user experience.
+
+### flowbite-react
+Flowbite React is a component library that is free and open-source. It is created using React components and interactivity handling, and is based on the core Flowbite components. The library has hundreds of interactive elements, such as navbars, dropdowns, modals, and sidebars. React manages these elements and they are based on the utility classes from Tailwind CSS.
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Considerations
+I would like to convey my heartfelt appreciation to the entire team for their dedication. It is because of their efforts that we were able to conduct thorough research, analyze the data, write the article, and devise effective solutions. Their hard work and commitment are truly commendable.
+
+> Project: LHV Emporio
+
+> Team:   
+> - André (Developer) 
+> 
+> Delivery: 13/01/2024 (dd/MM/yyyy)

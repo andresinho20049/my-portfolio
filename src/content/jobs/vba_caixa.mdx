@@ -1,0 +1,52 @@
+---
+title: VBA - Cash control
+description: Excel spreadsheet with programming using VBA to create userForms and macros with functions to generate PDF report, CNPJ query and auto-filling of fields.
+date: 2016-12-20
+imgSrc: /cards/VBA_fluxo_caixa.jpg
+tags: Excel|Visual Basic|Listview
+---
+
+Excel spreadsheet with userForm and macros developed with VBA for management and control.
+
+These forms have a complete crud, PDF report generation, financial planning and much more.
+
+It is possible for the user to select expenses by adding them to a listview, then export a customized PDF report with the selected items.
+
+For example:
+  - Alert when employee is close to experience
+  - Alert when due date and/or receipt is close to date
+  - Generate report with planning based on data selected in listview
+  - Model PDF is based on Sheet template
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+```VBA
+Sub report_PDF()
+
+    Plan6.Activate
+    
+    ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, Filename:=ActiveWorkbook.Path _
+    & "\Report " & Format(Now, "dd-mm-yy hh-MM-ss") & ".pdf", Quality:= _
+    xlQualityStandard, IncludeDocProperties:=False, IgnorePrintAreas:=False, OpenAfterPublish:=True
+
+End Sub
+```
+
+# About
+The spreadsheet is designed to efficiently store and manage financial data relating to expenses and revenues, with specific sheets allocated for distinct types of expenditures and incomes. 
+The report sheets are derived from templates and used to generate PDF reports. A control spreadsheet functions as a dashboard, providing an overview of the financial data.
+
+# Tools
+ - Excel 2007 (32bits)
+ - listview
+ - userForms
+ - macros
+
+> Developed by: André Carlos

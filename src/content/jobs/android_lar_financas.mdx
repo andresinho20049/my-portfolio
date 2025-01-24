@@ -1,0 +1,147 @@
+---
+title: APP Android - Lar & Finanças
+description: Android application with simple and intuitive dashboard, containing instant data updates.
+date: 2021-05-25
+imgSrc: /cards/app_android_lar_financas.png
+tags: Java|Android Studio|Firebase|Room Database|Google Auth
+---
+
+Android application with Google Auth authentication, without the need for registration and immediate update of the panel using RecycleView connected to the Room database
+
+## Pre-requisite:
+To run this application, you must have *Android Studio* installed on your machine.
+[Download link](https://developer.android.com/studio)
+
+> **Note:** \
+  When running the application it can be run on your [Android device](https://developer.android.com/studio/run/device) or via an emulator, using the [Android Emulator](https://developer.android.com/studio/run/emulator) the first screen will be the login screen, and login is done through your Google account, without the need to register, in other accesses you will directly access the main screen.
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Getting Started:
+1. Download the project by running a git clone:
+```git
+git clone https://github.com/andresinho20049/LarFinanca_appAndroid.git
+```
+
+2. with the project on your machine, open Android Studio and select "Open an Existing Project", wait until the entire repository is installed in your application, if you have problems [read](https://developer.android.com/ studio/intro/update.html#download-with-gradle).
+
+> **Note:**
+> The first run may take a while, as it will be downloading dependencies.
+
+3. Click Run or press SHIFT + F10.
+
+## Tools
+ - Android Studio
+ - Java 8
+ - Libraries
+     - Google
+          - 'com.google.android.gms:play-services-auth:19.0.0'
+
+     - Firebase
+          - 'com.google.firebase:firebase-database'
+          - 'com.google.firebase:firebase-storage'
+          - 'com.google.firebase:firebase-auth'
+          - 'com.google.firebase:firebase-analytics'
+
+     - Room components
+          - "androidx.room:room-runtime:2.2.5"
+          - "androidx.room:room-compiler:2.2.5"
+          - "androidx.room:room-testing:2.2.5"
+
+     - Lifecycle components
+          - 'androidx.fragment:fragment:1.2.1'
+          - "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+          - "androidx.lifecycle:lifecycle-livedata:2.2.0"
+          - "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+
+     - UI
+          - 'androidx.appcompat:appcompat:1.2.0'
+          - 'com.google.android.material:material:1.1.0-alpha06'
+          - 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## How it work
+When starting the app, it is analyzed whether the user is logged in, then they are directed to the dashboard, otherwise they will be redirected to the login screen.
+
+Login uses Google's Oauth2, in conjunction with FirebaseAuth, no registration is required, just log in with a Google account.
+
+```Java
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //Google SingIn
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //Instace firebase
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        if (savedInstanceState == null && mFirebaseAuth.getCurrentUser() == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, new LoginFragment())
+                    .commit();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container, new DashFragment())
+                .commit();
+
+    }
+```
+
+The data is stored in the Room Database, a repository and class dao were developed, and the RecyclerView interface was used.
+
+As soon as the base undergoes any change, an observe implemented in the view model is executed, ensuring that the interface is always updated, in this way synchronization with the data in the firebase is guaranteed.
+
+```Java
+     // Set up the RecyclerView
+     RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+     final ExtratoRecyclerViewAdapter adapter = new ExtratoRecyclerViewAdapter(new ExtratoRecyclerViewAdapter.FinanceiroDiff());
+     recyclerView.setHasFixedSize(false);
+     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false));
+     recyclerView.setAdapter(adapter);
+
+     financeiroViewModel = new ViewModelProvider(this).get(PagamentoViewModel.class);
+     financeiroViewModel.getAllPagamentos().observe(((MainActivity) getActivity()), pagamento -> {
+          adapter.submitList(pagamento);
+     });
+```
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+*READY!* \
+> **ACADEMIC PROJECT**: \
+> Student: *André Carlos* \
+> Course: Computer Science. \
+> Subject: Computing for Mobile Devices - 6th Semester.

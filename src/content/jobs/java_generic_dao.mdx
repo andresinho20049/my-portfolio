@@ -1,0 +1,99 @@
+---
+title: Java - Generic DAO
+description: Rest API for implementing generic Dao classes created by hand using EntityManager.
+date: 2020-09-24
+imgSrc: /cards/java_generic_dao.png
+tags: Java|Spring-Boot|ORM
+---
+
+## ORM
+Object Relational Mapping (ORM) is a technique that helps developers to map object-oriented programming language constructs to relational database models. ORM provides a way to represent a table in a relational database through Java classes, thereby simplifying the process of persisting data in a database.
+
+ORM is also known as Object Relational Mapping because it maps objects to relational databases. It is a popular technique used in modern web application development.
+
+To standardize ORM implementations in Java, the Java Persistence API (JPA) specification was developed. JPA is a set of interfaces and classes that allow developers to persist data between Java objects and a relational database. In JPA, the Java classes that represent the data to be stored in the database management system (DBMS) are called Entities. An entity class is identified by the presence of the "@Entity" annotation, which causes JPA to associate the Java class in question with a database table.
+
+The "Rest GenericDAO API" project was developed by André Carlos (andresinho20049) for academic purposes to study ORM. The project is a RESTful web service that provides a generic Data Access Object (DAO) API for accessing and manipulating data in a database using ORM. The project is designed to be easily extensible and adaptable to different database models and architectures.
+
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+## Technology used 
+  - Java 8
+  - Maven 3.6.3
+  - Spring Boot 2.3.4
+    - Starter Web
+    - Starter Data JPA
+
+```Java
+    @Entity
+    public class Pessoa implements Serializable {
+
+	    private static final long serialVersionUID = 1L;
+	    
+        @Id
+    	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    	private Integer id;
+    	
+    	@Column(length = 100, nullable = false)
+    	private String nome;
+    	
+    	@Column(length = 11, unique = true, nullable = false)
+    	private String cpf;
+    	
+    	@Temporal(TemporalType.DATE)
+    	@Column(nullable = false)
+    	private Date data_nascimento;
+    	
+    	@Embedded
+    	private Endereco endereco;
+    	
+    	@OneToMany(cascade=CascadeType.ALL)
+    	@JoinColumn(name="pessoa_id", referencedColumnName="id")
+	    private List<Telefone> telefone;
+    ```
+- Table Pessoa  
+    ```cmd
+    +-----------------+--------------+------+-----+---------+----------------+
+    | Field           | Type         | Null | Key | Default | Extra          |
+    +-----------------+--------------+------+-----+---------+----------------+
+    | id              | int(11)      | NO   | PRI | NULL    | auto_increment |
+    | cpf             | varchar(11)  | NO   | UNI | NULL    |                |
+    | data_nascimento | date         | NO   |     | NULL    |                |
+    | bairro          | varchar(50)  | NO   |     | NULL    |                |
+    | cep             | int(11)      | NO   |     | NULL    |                |
+    | logradouro      | varchar(50)  | NO   |     | NULL    |                |
+    | municipio       | varchar(50)  | NO   |     | NULL    |                |
+    | numero          | int(11)      | NO   |     | NULL    |                |
+    | uf              | varchar(2)   | NO   |     | NULL    |                |
+    | nome            | varchar(100) | NO   |     | NULL    |                |
+    +-----------------+--------------+------+-----+---------+----------------+
+    ```
+- Table Telefone  
+    ```cmd
+    +-----------+------------+------+-----+---------+----------------+
+    | Field     | Type       | Null | Key | Default | Extra          |
+    +-----------+------------+------+-----+---------+----------------+
+    | id        | int(11)    | NO   | PRI | NULL    | auto_increment |
+    | numero    | bigint(20) | NO   |     | NULL    |                |
+    | pessoa_id | int(11)    | YES  | MUL | NULL    |                |
+    +-----------+------------+------+-----+---------+----------------+
+    ```
+<ins
+  className="adsbygoogle"
+  style={{ display: "block", textAlign: "center" }}
+  data-ad-layout="in-article"
+  data-ad-format="fluid"
+  data-ad-client="ca-pub-3617432012620885"
+  data-ad-slot="6978263277"
+></ins>
+
+> **Projeto:** API Rest GenericDAO \
+> **Autor:** André Carlos [(andresinho20049)](https://github.com/andresinho20049) \
+> **Resumo:** Project developed for academic purposes with the aim of studying *ORM*
