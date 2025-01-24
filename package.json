@@ -1,0 +1,48 @@
+{
+  "name": "Portfolio - andresinho20049",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "André Carlos",
+    "url": "https://andresinho20049.com.br/"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "next build && next start",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/third-parties": "^14.1.0",
+    "@tailwindcss/typography": "^0.5.9",
+    "@unform/core": "^2.1.6",
+    "@unform/web": "^2.1.6",
+    "@vercel/analytics": "^1.0.0",
+    "autoprefixer": "10.4.14",
+    "contentlayer": "^0.3.4",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.4.1",
+    "flowbite": "^2.2.1",
+    "flowbite-react": "^0.7.2",
+    "googleapis": "^131.0.0",
+    "next": "13.4.1",
+    "next-contentlayer": "^0.3.4",
+    "next-themes": "^0.2.1",
+    "nodemailer": "^6.9.8",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "schema-dts": "^1.1.2",
+    "tailwindcss": "3.4.1",
+    "typewriter-effect": "^2.21.0",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.16.1",
+    "@types/nodemailer": "^6.4.14",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.1",
+    "typescript": "5.0.4"
+  }
+}
