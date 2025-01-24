@@ -1,0 +1,41 @@
+services:
+  portifolio:
+    build: .
+    profiles: ['']
+    ports:
+      - 3000:3000
+    networks:
+      - portifolio-network
+  
+  # docker compose --profile development up
+  portifolio_dev:
+    user: root
+    build: 
+      dockerfile: ./Dockerfile
+      target: 'development'
+    profiles: ['development']
+    command: bash -c "npm run dev"
+    ports:
+      - 3002:3000
+    volumes:
+      - type: bind
+        source: ./src
+        target: /opt/app/src
+      - type: bind
+        source: ./public
+        target: /opt/app/public
+      - type: bind
+        source: ./package.json
+        target: /opt/app/package.json
+      # - type: bind
+      #   source: ./node_modules
+      #   target: /opt/app/node_modules
+    networks:
+      - portifolio-network
+
+volumes:
+  portifolio-data:
+
+networks:
+  portifolio-network:
+    
